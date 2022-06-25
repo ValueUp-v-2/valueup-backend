@@ -8,8 +8,7 @@
     
 - **👀** **Stack**
     
-    Front-End : 
     
-    Back-End : Spring boot / JPA / Junit5
+    Back-End : Spring boot / JPA / Junit5 / Mysql / 
     
-    DevOps : Mysql / AWS EC2 / AWS S3
+    DevOps : AWS EC2 / AWS S3

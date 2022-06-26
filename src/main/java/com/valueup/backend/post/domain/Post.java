@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import lombok.Getter;
 
 @Entity
@@ -16,20 +17,21 @@ import lombok.Getter;
 @Getter
 public abstract class Post extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "post_id")
-    private Long id; //게시판 번호
+  @Id
+  @GeneratedValue
+  @Column(name = "post_id")
+  protected Long id; //게시판 번호
 
-    @Column(name = "post_name")
-    private String name;//게시판 이름
+  @Column(name = "post_name")
+  protected String name;//게시판 이름
 
 
-    @Column(name = "post_content")
-    private String content;//게시판 내용
+  @Column(name = "post_content")
+  @Lob
+  protected String content;//게시판 내용
 
-    @Column(name = "post_views")
-    private int views;//게시판 조회수
+  @Column(name = "post_views")
+  protected int views;//게시판 조회수
 
 
 }

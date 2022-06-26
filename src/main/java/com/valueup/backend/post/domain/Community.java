@@ -3,11 +3,13 @@ package com.valueup.backend.post.domain;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,8 +18,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Community extends Post {
 
-    @Column(name = "community_likes")
-    private int likes;//좋아요 수
+  @Column(name = "community_likes")
+  private int likes;//좋아요 수
 
-    //카테고리 따로 테이블 생성??? enum처리????
+  //카테고리 따로 테이블 생성??? enum처리????
 }

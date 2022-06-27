@@ -1,6 +1,7 @@
 package com.valueup.backend.post.dto.request;
 
 import com.valueup.backend.post.domain.Announcement;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class AnnouncementRequest {
+
   @NotNull
   @NotBlank(message = "제목을 입력해주세요.")
   private String name;//게시판 이름
@@ -19,9 +21,31 @@ public class AnnouncementRequest {
   @NotBlank(message = "내용을 입력해주세요.")
   private String content;//게시판 내용
 
+  @NotNull
+  private String recruitment; //모집 인원
 
-  public Announcement DtoToAnnouncement(AnnouncementRequest req){
-    Announcement announcement = Announcement.builder().name(name).content(content).build();
+  @NotNull
+  private LocalDateTime starDate;//시작 기간
+
+  @NotNull
+  private LocalDateTime endDate;//종료 기간
+
+  @NotNull
+  private int period; //활동 기간
+
+  @NotNull
+  private String url; //게시판 홈페이지
+
+
+  public Announcement DtoToAnnouncement(AnnouncementRequest req) {
+    Announcement announcement = Announcement.builder()
+        .name(name)
+        .content(content)
+        .recruitment(recruitment)
+        .starDate(starDate).endDate(endDate)
+        .period(period)
+        .url(url)
+        .build();
     return announcement;
   }
 

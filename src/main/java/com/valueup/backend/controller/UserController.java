@@ -16,26 +16,17 @@ public class UserController {
 
   private final UserRepository userRepository;
 
-  @GetMapping("/login")
-  public String loginForm() {
-    return "login";
-  }
-
-  @GetMapping("/nickname")
-  public String nicknameForm(HttpSession session, Model model) {
+  @GetMapping("/userinfo")
+  public User userInfo(HttpSession session) {
     User user = (User) session.getAttribute("user");
-    if (user.getNickname() == null) {
-      model.addAttribute("nicknameDto", new NicknameRequestDto());
-      return "nickname";
-    }
-    return "index";
+    return user;
   }
 
   @PostMapping("/nickname")
-  public String setNickname(HttpSession session, NicknameRequestDto requestDto) {
+  public User setNickname(HttpSession session, NicknameRequestDto requestDto) {
     User user = (User) session.getAttribute("user");
     user.setNickname(requestDto.getNickname());
     userRepository.save(user);
-    return "index";
+    return user;
   }
 }

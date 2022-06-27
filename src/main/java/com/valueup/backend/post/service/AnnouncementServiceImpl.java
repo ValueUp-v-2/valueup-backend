@@ -2,7 +2,10 @@ package com.valueup.backend.post.service;
 
 import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
+import com.valueup.backend.post.dto.response.AnnouncementListResponse;
+import com.valueup.backend.post.repository.AnnouncementRepository;
 import com.valueup.backend.post.repository.PostRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
 
-  private final PostRepository postRepository;
+  private final AnnouncementRepository announcementRepository;
 
   @Transactional
   @Override
-  public Long createPost(AnnouncementRequest request) {
+  public Long createAnnouncement(AnnouncementRequest request) {
     Announcement announcement = request.DtoToAnnouncement(request);
-    postRepository.save(announcement);
+    announcementRepository.save(announcement);
     return announcement.getId();
+  }
+
+  @Override
+  public List<AnnouncementListResponse> getListOfAnnouncement() {
+    return null;
   }
 }

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @DiscriminatorValue("B")
 @Getter
-@Builder
+
 public class Announcement extends Post {
 
   @Column(name = "announcement_kind")
@@ -37,10 +37,16 @@ public class Announcement extends Post {
   private String url; //게시판 홈페이지
 
   @Builder
-  public Announcement(Long id, String name, String content, int views){
+  public Announcement(Long id, String name, String content, int views, String recruitment,
+      LocalDateTime starDate, LocalDateTime endDate, int period, String url) {
     this.id = id;
     this.name = name;
     this.content = content;
     this.views = views;
+    this.recruitment = recruitment;
+    this.starDate = starDate;
+    this.endDate = endDate;
+    this.period = period;
+    this.url = url;
   }
 }

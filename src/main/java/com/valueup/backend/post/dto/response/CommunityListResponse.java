@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AnnouncementListResponse {
+public class CommunityListResponse {
 
-  private List<AnnouncementResponse> announcementResponses;
-
+  private List<CommunityResponse> communityResponses;
 }

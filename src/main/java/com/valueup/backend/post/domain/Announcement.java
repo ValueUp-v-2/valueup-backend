@@ -22,7 +22,7 @@ public class Announcement extends Post {
   private String kind; //게시판 종류
 
   @Column(name = "announcement_recruitment")
-  private String recruitment; //모집 인원
+  private int recruitment; //모집 인원
 
   @Column(name = "announcement_start_date")
   private LocalDateTime starDate;//시작 기간
@@ -37,7 +37,7 @@ public class Announcement extends Post {
   private String url; //게시판 홈페이지
 
   @Builder
-  public Announcement(Long id, String name, String content, int views, String recruitment,
+  public Announcement(Long id, String name, String content, int views, int recruitment,
       LocalDateTime starDate, LocalDateTime endDate, int period, String url) {
     this.id = id;
     this.name = name;

@@ -3,9 +3,10 @@ package com.valueup.backend.post.service;
 import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
+import com.valueup.backend.post.dto.response.AnnouncementResponse;
 import com.valueup.backend.post.repository.AnnouncementRepository;
-import com.valueup.backend.post.repository.PostRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     return announcement.getId();
   }
 
+  @Transactional
   @Override
-  public List<AnnouncementListResponse> getListOfAnnouncement() {
-    return null;
+  public AnnouncementListResponse getListOfAnnouncement() {
+    List<Announcement> announcements = announcementRepository.findAll();
+    List<AnnouncementResponse> announcementResponses = announcements.stream()
+        .map(a -> new AnnouncementResponse(a)).collect(
+            Collectors.toList());
+    AnnouncementListResponse announcementListResponse = new AnnouncementListResponse(
+        announcementResponses);
+    return announcementListResponse;
   }
 }

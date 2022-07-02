@@ -1,6 +1,7 @@
 package com.valueup.backend.post.dto.response;
 
 import com.valueup.backend.post.domain.Announcement;
+import com.valueup.backend.user.domain.User;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class AnnouncementResponse {
 
   private String name;//게시판 이름
 
-  //작성자
+  private String nickname;
 
   private String content;//게시판 내용
 
@@ -33,14 +34,17 @@ public class AnnouncementResponse {
 
   private int comments;//댓글수
 
-  public AnnouncementResponse(Announcement announcement) {
+  public AnnouncementResponse(Announcement announcement/*, User user*/) {
     this.id = announcement.getId();
     this.name = announcement.getName();
+    //this.nickname = user.getNickname();
     this.starDate = announcement.getStarDate();
     this.endDate = announcement.getEndDate();
     this.period = announcement.getPeriod();
     this.url = announcement.getUrl();
   }
+
+
 
   //썸네일?
 

@@ -2,11 +2,14 @@ package com.valueup.backend.oauth;
 
 import com.valueup.backend.user.domain.User;
 import com.valueup.backend.user.repository.UserRepository;
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +39,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     User user = saveOrGet(authAttributes);
     httpSession.setAttribute("user", user);
 
-    return oAuth2User;
+    return new DefaultOAuth2User(
+        Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
+        authAttributes.getAttributes(),
+        authAttributes.getNameAttributeKey()
+    );
   }
 
   private User saveOrGet(OAuthAttributes attributes) {

@@ -1,4 +1,4 @@
-package com.valueup.backend.controller;
+package com.valueup.backend.user.controller;
 
 import com.valueup.backend.user.domain.User;
 import com.valueup.backend.user.dto.NicknameRequestDto;
@@ -9,9 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
 
   private final UserRepository userRepository;

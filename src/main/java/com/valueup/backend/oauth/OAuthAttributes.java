@@ -1,5 +1,6 @@
 package com.valueup.backend.oauth;
 
+import com.valueup.backend.user.domain.Role;
 import com.valueup.backend.user.domain.User;
 import java.util.Map;
 import lombok.Builder;
@@ -83,6 +84,7 @@ public class OAuthAttributes {
     return User.builder()
         .name(name)
         .email(email)
+        .role(Role.NORMAL)
         .build();
   }
 

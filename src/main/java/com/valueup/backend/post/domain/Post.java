@@ -1,6 +1,9 @@
 package com.valueup.backend.post.domain;
 
+import static javax.persistence.FetchType.LAZY;
+
 import com.valueup.backend.common.BaseEntity;
+import com.valueup.backend.user.domain.User;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -8,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 
 @Entity
@@ -24,6 +29,10 @@ public abstract class Post extends BaseEntity {
 
   @Column(name = "post_name")
   protected String name;//게시판 이름
+
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "user_id") // 작성자 번호
+  protected User user;
 
 
   @Column(name = "post_content")

@@ -1,6 +1,7 @@
 package com.valueup.backend.post.dto.request;
 
 import com.valueup.backend.post.domain.Announcement;
+import com.valueup.backend.user.domain.User;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,9 @@ public class AnnouncementRequest {
   private String content;//게시판 내용
 
   @NotNull
+  private String userId;
+
+  @NotNull
   private int recruitment; //모집 인원
 
   @NotNull
@@ -37,10 +41,11 @@ public class AnnouncementRequest {
   private String url; //게시판 홈페이지
 
 
-  public Announcement DtoToAnnouncement(AnnouncementRequest req) {
+  public Announcement DtoToAnnouncement(AnnouncementRequest req, User user) {
     Announcement announcement = Announcement.builder()
         .name(name)
         .content(content)
+        .user(user)
         .recruitment(recruitment)
         .starDate(starDate).endDate(endDate)
         .period(period)

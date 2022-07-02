@@ -24,5 +24,5 @@ public class Hashtag {
     private Long id; //해시태그 번호
 
     @Column(name = "hashtag_content")
-    private String content; //해시태그 번호
+    private String content; //해시태그 이름
 }

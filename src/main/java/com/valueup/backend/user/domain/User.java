@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,14 +37,24 @@ public class User extends BaseEntity {
   @OneToMany(mappedBy = "user")
   private final List<Post> postList = new ArrayList<>();
 
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Role role;
+
+
   @Builder
-  public User(String nickname, String name, String email) {
+  public User(String nickname, String name, String email, Role role) {
     this.nickname = nickname;
     this.name = name;
     this.email = email;
+    this.role = role;
   }
 
   public void setNickname(String nickname) {
     this.nickname = nickname;
+  }
+
+  public String getRoleKey() {
+    return this.role.getKey();
   }
 }

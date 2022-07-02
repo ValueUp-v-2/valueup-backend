@@ -22,7 +22,7 @@ public class AnnouncementRequest {
   private String content;//게시판 내용
 
   @NotNull
-  private String recruitment; //모집 인원
+  private int recruitment; //모집 인원
 
   @NotNull
   private LocalDateTime starDate;//시작 기간

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CommunityRequest {
+
   @NotNull
   @NotBlank(message = "제목을 입력해주세요.")
   private String name;//게시판 이름
@@ -19,7 +20,12 @@ public class CommunityRequest {
   @NotBlank(message = "내용을 입력해주세요.")
   private String content;//게시판 내용
 
-  public static Community DtoToCommunity(CommunityRequest req){
+
+  public Community DtoToCommunity(CommunityRequest req) {
+    Community community = Community.builder()
+        .name(name)
+        .content(content)
+        .build();
     return new Community();
 
   }

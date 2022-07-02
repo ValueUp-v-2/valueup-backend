@@ -22,15 +22,13 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
         .authorizeRequests(a -> a
-            .antMatchers("/", "/login", "/h2-console/**").permitAll()
+            .antMatchers("/", "/login", "/h2-console/**", "/**").permitAll()
             .anyRequest().authenticated()
         )
         .exceptionHandling(e -> e
             .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
         )
-        .csrf(c -> c
-            .ignoringAntMatchers("/h2-console/**")
-        )
+        .csrf().disable()
         .headers(h -> h
             .frameOptions().sameOrigin()
         )

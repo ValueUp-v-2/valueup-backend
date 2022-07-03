@@ -1,6 +1,8 @@
 package com.valueup.backend.post.service;
 
+import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
+import com.valueup.backend.post.dto.request.UpdateAnnouncementRequest;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
 import com.valueup.backend.post.dto.response.AnnouncementResponse;
 import com.valueup.backend.user.domain.User;
@@ -13,4 +15,6 @@ public interface AnnouncementService {
   AnnouncementListResponse getListOfAnnouncement();
 
   AnnouncementResponse getAnnouncement(Long id);
+
+  Long updateAnnouncement(UpdateAnnouncementRequest request, Long id);
 }

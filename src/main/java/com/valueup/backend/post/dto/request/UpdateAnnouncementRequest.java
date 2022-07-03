@@ -1,5 +1,13 @@
 package com.valueup.backend.post.dto.request;
 
-public class UpdateAnnouncementRequest {
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class UpdateAnnouncementRequest extends AnnouncementRequest{
+  private Long id;
 }

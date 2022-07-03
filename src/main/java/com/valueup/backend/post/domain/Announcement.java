@@ -51,4 +51,32 @@ public class Announcement extends Post {
     this.period = period;
     this.url = url;
   }
+
+  public void updateName(String name) {
+    this.name = name;
+  }
+
+  public void updateContent(String content) {
+    this.content = content;
+  }
+
+  public void updateRecruitment(int recruitment) {
+    this.recruitment = recruitment;
+  }
+
+  public void updateStarDate(LocalDateTime starDate) {
+    this.starDate = starDate;
+  }
+
+  public void updateEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
+  }
+
+  public void updatePeriod(int period) {
+    this.period = period;
+  }
+
+  public void updateUrl(String url) {
+    this.url = url;
+  }
 }

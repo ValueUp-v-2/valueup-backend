@@ -9,4 +9,8 @@ public interface CommunityService {
   Long createCommunity(CommunityRequest request);
 
   CommunityListResponse getListOfCommunity();
+
+  Long updateCommunity(CommunityRequest request, Long id);
+
+  void deleteCommunity(Long id);
 }

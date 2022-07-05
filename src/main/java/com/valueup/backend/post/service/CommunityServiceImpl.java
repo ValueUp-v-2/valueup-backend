@@ -41,4 +41,20 @@ public class CommunityServiceImpl implements CommunityService {
         communityResponses);
     return communityListResponse;
   }
+
+  @Override
+  public Long updateCommunity(CommunityRequest request, Long id) {
+    Community community = communityRepository.findById(id).orElse(null);
+    community.updateName(request.getName());
+    community.updateContent(request.getContent());
+    communityRepository.save(community);
+    return community.getId();
+  }
+
+  @Override
+  public void deleteCommunity(Long id) {
+    Community community = communityRepository.findById(id).orElse(null);
+    communityRepository.delete(community);
+  }
+
 }

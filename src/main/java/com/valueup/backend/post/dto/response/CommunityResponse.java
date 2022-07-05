@@ -14,11 +14,13 @@ public class CommunityResponse {
 
   private String content;//게시판 내용
 
+  private String nickname; //유저 닉네임
+
   private int likes;
 
   public CommunityResponse(Community community) {
     this.name = community.getName();
-
     this.content = community.getContent();
+    this.nickname = community.getUser().getNickname();
   }
 }

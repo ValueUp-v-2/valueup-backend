@@ -22,8 +22,6 @@ public class AnnouncementRequest {
   @NotBlank(message = "내용을 입력해주세요.")
   private String content;//게시판 내용
 
-  @NotNull
-  private String userId;
 
   @NotNull
   private int recruitment; //모집 인원

@@ -32,7 +32,7 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
     //inherited
     public final NumberPath<Long> id;
 
-    public final StringPath kind = createString("kind");
+    public final EnumPath<AnnouncementKind> kind = createEnum("kind", AnnouncementKind.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate;

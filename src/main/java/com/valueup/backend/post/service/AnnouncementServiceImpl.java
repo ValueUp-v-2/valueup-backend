@@ -33,6 +33,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
   @Transactional
   @Override
   public AnnouncementListResponse getListOfAnnouncement() {
+
     List<Announcement> announcements = announcementRepository.findAll();
 
     List<AnnouncementResponse> announcementResponses = announcements.stream()

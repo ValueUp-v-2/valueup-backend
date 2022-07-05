@@ -16,7 +16,7 @@ public class AnnouncementResponse {
 
   private String name;//게시판 이름
 
-  private String nickname;
+  private String nickname; //유저 닉네임
 
   private String content;//게시판 내용
 
@@ -34,10 +34,10 @@ public class AnnouncementResponse {
 
   private int comments;//댓글수
 
-  public AnnouncementResponse(Announcement announcement/*, User user*/) {
+  public AnnouncementResponse(Announcement announcement) {
     this.id = announcement.getId();
     this.name = announcement.getName();
-    //this.nickname = user.getNickname();
+    this.nickname = announcement.getUser().getNickname();
     this.starDate = announcement.getStarDate();
     this.endDate = announcement.getEndDate();
     this.period = announcement.getPeriod();

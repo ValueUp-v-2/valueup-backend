@@ -1,27 +1,25 @@
 package com.valueup.backend.post.controller;
 
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
-import com.valueup.backend.post.dto.request.UpdateAnnouncementRequest;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
 import com.valueup.backend.post.dto.response.AnnouncementResponse;
 import com.valueup.backend.post.service.AnnouncementService;
 import com.valueup.backend.user.domain.User;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+
 
 @RestController
 @RequestMapping("/v1/users")
@@ -34,7 +32,8 @@ public class AnnouncementController {
 
 
   @PostMapping("/announcement")
-  public ResponseEntity<Long> createReview(@Valid @RequestBody AnnouncementRequest request, HttpSession session,
+  public ResponseEntity<Long> createReview(@Valid @RequestBody AnnouncementRequest request,
+      HttpSession session,
       BindingResult result) {
     User user = (User) session.getAttribute("user");
     Long id = announcementService.createAnnouncement(user, request);
@@ -58,7 +57,8 @@ public class AnnouncementController {
   }
 
   @PatchMapping("/announcement/{id}")
-  public ResponseEntity<Long> UpdateAnnouncement(@Valid @RequestBody UpdateAnnouncementRequest request, @PathVariable Long id,
+  public ResponseEntity<Long> updateAnnouncement(
+      @Valid @RequestBody AnnouncementRequest request, @PathVariable Long id,
       BindingResult result) {
     Long updateId = announcementService.updateAnnouncement(request, id);
     if (result.hasErrors()) {
@@ -68,5 +68,10 @@ public class AnnouncementController {
     return new ResponseEntity<>(updateId, HttpStatus.OK);
   }
 
+  @DeleteMapping("/announcement/{id}")
+  public ResponseEntity<Void> deleteAnnouncement(@PathVariable Long id) {
+    announcementService.deleteAnnouncement(id);
+    return ResponseEntity.noContent().build();
+  }
 
 }

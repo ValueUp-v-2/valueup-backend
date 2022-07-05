@@ -2,15 +2,12 @@ package com.valueup.backend.post.service;
 
 import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
-import com.valueup.backend.post.dto.request.UpdateAnnouncementRequest;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
 import com.valueup.backend.post.dto.response.AnnouncementResponse;
 import com.valueup.backend.post.repository.AnnouncementRepository;
 import com.valueup.backend.user.domain.User;
 import com.valueup.backend.user.repository.UserRepository;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,7 +36,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     List<Announcement> announcements = announcementRepository.findAll();
 
     List<AnnouncementResponse> announcementResponses = announcements.stream()
-        .map( a -> new AnnouncementResponse(a)).collect(
+        .map(a -> new AnnouncementResponse(a)).collect(
             Collectors.toList());
     AnnouncementListResponse announcementListResponse = new AnnouncementListResponse(
         announcementResponses);
@@ -56,7 +53,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
   @Transactional
   @Override
-  public Long updateAnnouncement(UpdateAnnouncementRequest request, Long id) {
+  public Long updateAnnouncement(AnnouncementRequest request, Long id) {
     Announcement announcement = announcementRepository.findById(id).orElse(null);
     announcement.updateName(request.getName());
     announcement.updateContent(request.getContent());
@@ -67,7 +64,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     announcement.updateUrl(request.getUrl());
     announcementRepository.save(announcement);
 
-
     return announcement.getId();
+  }
+
+  @Transactional
+  @Override
+  public void deleteAnnouncement(Long id) {
+    Announcement announcement = announcementRepository.findById(id).orElse(null);
+    announcementRepository.delete(announcement);
   }
 }

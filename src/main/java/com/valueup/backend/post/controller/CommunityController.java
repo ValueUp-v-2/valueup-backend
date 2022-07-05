@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +42,23 @@ public class CommunityController {
   public ResponseEntity<CommunityListResponse> getListOfCommunity() {
     CommunityListResponse communityListResponse = communityService.getListOfCommunity();
     return new ResponseEntity<>(communityListResponse, HttpStatus.OK);
+  }
+
+  @PatchMapping("/community/{id}")
+  public ResponseEntity<Long> updateCommunity(
+      @Valid @RequestBody CommunityRequest request, @PathVariable Long id,
+      BindingResult result) {
+    Long updateId = communityService.updateCommunity(request, id);
+    if (result.hasErrors()) {
+      //return ""; 다시 글 작성 페이지로
+    }
+    //성공하면 글 목록으로
+    return new ResponseEntity<>(updateId, HttpStatus.OK);
+  }
+
+  @DeleteMapping("/community/{id}")
+  public ResponseEntity<Void> deleteCommunity(@PathVariable Long id) {
+    communityService.deleteCommunity(id);
+    return ResponseEntity.noContent().build();
   }
 }

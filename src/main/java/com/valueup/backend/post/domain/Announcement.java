@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +21,9 @@ import lombok.NoArgsConstructor;
 
 public class Announcement extends Post {
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "announcement_kind")
-  private String kind; //게시판 종류
+  private AnnouncementKind kind; //게시판 종류
 
   @Column(name = "announcement_recruitment")
   private int recruitment; //모집 인원
@@ -52,6 +55,8 @@ public class Announcement extends Post {
     this.url = url;
   }
 
+
+  //추후 update용 생성자 만들기?
   public void updateName(String name) {
     this.name = name;
   }

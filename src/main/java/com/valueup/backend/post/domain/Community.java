@@ -1,10 +1,8 @@
 package com.valueup.backend.post.domain;
 
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,5 +28,13 @@ public class Community extends Post {
     this.content = content;
     this.views = views;
     this.likes = likes;
+  }
+
+  public void updateName(String name) {
+    this.name = name;
+  }
+
+  public void updateContent(String content) {
+    this.content = content;
   }
 }

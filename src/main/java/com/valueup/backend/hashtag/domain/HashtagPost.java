@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 public class HashtagPost {
+
     @Id
     @GeneratedValue
     @Column(name = "hashtag_post_id")

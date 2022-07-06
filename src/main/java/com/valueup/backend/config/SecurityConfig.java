@@ -4,6 +4,7 @@ import com.valueup.backend.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +23,10 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
         .authorizeRequests(a -> a
-            .antMatchers("/", "/login", "/h2-console/**", "/**").permitAll()
+            .antMatchers("/", "/login", "/h2-console/**").permitAll()
+            .antMatchers(HttpMethod.POST,"/v1/users/announcement").hasRole("ENTERPRISE")
+            .antMatchers(HttpMethod.PATCH,"/v1/users/announcement/**").hasRole("ENTERPRISE")
+            .antMatchers(HttpMethod.DELETE,"/v1/users/announcement/**").hasRole("ENTERPRISE")
             .anyRequest().authenticated()
         )
         .exceptionHandling(e -> e
@@ -32,6 +36,9 @@ public class SecurityConfig {
         .headers(h -> h
             .frameOptions().sameOrigin()
         )
+        .formLogin(l -> l
+            .defaultSuccessUrl("/userinfo")
+        )
         .logout(l -> l
             .logoutSuccessUrl("/login").permitAll()
         )
@@ -39,6 +46,7 @@ public class SecurityConfig {
             .loginPage("/login")
             .defaultSuccessUrl("/userinfo")
             .userInfoEndpoint().userService(customOAuth2UserService));
+
     return http.build();
   }
 }

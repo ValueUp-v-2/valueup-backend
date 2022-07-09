@@ -9,10 +9,7 @@ import com.valueup.backend.user.repository.UserRepository;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,8 +46,17 @@ public class UserController {
     return user;
   }
 
+  @GetMapping("/enterprise")
+  public User toEnterpriseRoleBySession(HttpSession session) {
+    User user = (User) session.getAttribute("user");
+    user.setRole(Role.ENTERPRISE);
+    userRepository.save(user);
+
+    return user;
+  }
+
   @PostMapping("/enterprise")
-  public User toEnterpriseRole(EnterpriseRequestDto requestDto) {
+  public User toEnterpriseRoleByNickname(EnterpriseRequestDto requestDto) {
     Optional<User> userOptional = userRepository.findByNickname(requestDto.getNickname());
     if (userOptional.isEmpty()) {
       //TODO Exception

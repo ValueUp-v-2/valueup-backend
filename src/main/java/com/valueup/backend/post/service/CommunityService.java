@@ -13,4 +13,7 @@ public interface CommunityService {
   Long updateCommunity(CommunityRequest request, Long id);
 
   void deleteCommunity(Long id);
+
+  //좋아요
+  boolean  likeCommunity(Long postId);
 }

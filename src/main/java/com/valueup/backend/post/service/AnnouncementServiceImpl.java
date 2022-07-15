@@ -58,6 +58,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     Announcement announcement = announcementRepository.findById(id).orElse(null);
     announcement.updateName(request.getName());
     announcement.updateContent(request.getContent());
+    announcement.updateAnnouncementKind(request.getKind());
     announcement.updateRecruitment(request.getRecruitment());
     announcement.updateStarDate(request.getStarDate());
     announcement.updateEndDate(request.getEndDate());

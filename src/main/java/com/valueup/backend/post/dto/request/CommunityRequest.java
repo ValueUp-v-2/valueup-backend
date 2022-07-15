@@ -1,6 +1,7 @@
 package com.valueup.backend.post.dto.request;
 
 import com.valueup.backend.post.domain.Community;
+import com.valueup.backend.post.domain.CommunityCategory;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,12 +22,15 @@ public class CommunityRequest {
   private String content;//게시판 내용
 
 
+  @NotNull
+  private CommunityCategory communityCategory;//게시판 종류
+
   public Community DtoToCommunity(CommunityRequest req) {
     Community community = Community.builder()
         .name(name)
         .content(content)
+        .communityCategory(communityCategory)
         .build();
     return new Community();
-
   }
 }

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,8 +36,8 @@ public class User extends BaseEntity {
   @Column
   private String email;
 
-//  @OneToMany(mappedBy = "user")
-//  private final List<Post> postList = new ArrayList<>();
+  //@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  //private final List<Post> postList = new ArrayList<>();
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)

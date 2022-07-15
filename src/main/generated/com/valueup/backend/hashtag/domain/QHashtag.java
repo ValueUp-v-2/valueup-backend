@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -20,6 +21,8 @@ public class QHashtag extends EntityPathBase<Hashtag> {
     public static final QHashtag hashtag = new QHashtag("hashtag");
 
     public final StringPath content = createString("content");
+
+    public final ListPath<HashtagPost, QHashtagPost> hashtagPosts = this.<HashtagPost, QHashtagPost>createList("hashtagPosts", HashtagPost.class, QHashtagPost.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

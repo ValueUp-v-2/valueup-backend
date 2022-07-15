@@ -24,6 +24,8 @@ public class QCommunity extends EntityPathBase<Community> {
 
     public final QPost _super;
 
+    public final EnumPath<CommunityCategory> communityCategory = createEnum("communityCategory", CommunityCategory.class);
+
     //inherited
     public final StringPath content;
 

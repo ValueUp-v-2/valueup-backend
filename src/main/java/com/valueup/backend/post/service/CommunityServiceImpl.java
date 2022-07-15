@@ -1,11 +1,9 @@
 package com.valueup.backend.post.service;
 
-import com.valueup.backend.comment.repository.CommentRepository;
-import com.valueup.backend.post.domain.Announcement;
+
 import com.valueup.backend.post.domain.Community;
 import com.valueup.backend.post.dto.request.CommunityRequest;
-import com.valueup.backend.post.dto.response.AnnouncementListResponse;
-import com.valueup.backend.post.dto.response.AnnouncementResponse;
+
 import com.valueup.backend.post.dto.response.CommunityListResponse;
 import com.valueup.backend.post.dto.response.CommunityResponse;
 import com.valueup.backend.post.repository.CommunityRepository;
@@ -47,6 +45,7 @@ public class CommunityServiceImpl implements CommunityService {
     Community community = communityRepository.findById(id).orElse(null);
     community.updateName(request.getName());
     community.updateContent(request.getContent());
+    community.updateCommunityCategory(request.getCommunityCategory());
     communityRepository.save(community);
     return community.getId();
   }
@@ -55,6 +54,11 @@ public class CommunityServiceImpl implements CommunityService {
   public void deleteCommunity(Long id) {
     Community community = communityRepository.findById(id).orElse(null);
     communityRepository.delete(community);
+  }
+
+  @Override
+  public boolean likeCommunity(Long postId) {
+    return false;
   }
 
 }

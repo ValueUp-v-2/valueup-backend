@@ -29,6 +29,8 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
 
     public final DateTimePath<java.time.LocalDateTime> endDate = createDateTime("endDate", java.time.LocalDateTime.class);
 
+    public final ListPath<com.valueup.backend.hashtag.domain.HashtagPost, com.valueup.backend.hashtag.domain.QHashtagPost> hashtagPosts = this.<com.valueup.backend.hashtag.domain.HashtagPost, com.valueup.backend.hashtag.domain.QHashtagPost>createList("hashtagPosts", com.valueup.backend.hashtag.domain.HashtagPost.class, com.valueup.backend.hashtag.domain.QHashtagPost.class, PathInits.DIRECT2);
+
     //inherited
     public final NumberPath<Long> id;
 

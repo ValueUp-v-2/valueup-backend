@@ -1,12 +1,18 @@
 package com.valueup.backend.post.domain;
 
+import com.valueup.backend.hashtag.domain.HashtagPost;
 import com.valueup.backend.user.domain.User;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("B")
+@DiscriminatorValue("A")
 @Getter
 
 public class Announcement extends Post {
@@ -40,19 +46,24 @@ public class Announcement extends Post {
   @Column(name = "announcement_url")
   private String url; //게시판 홈페이지
 
+  @OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<HashtagPost> hashtagPosts = new ArrayList<>();
+
   @Builder
-  public Announcement(Long id, String name, String content, User user, int views, int recruitment,
-      LocalDateTime starDate, LocalDateTime endDate, int period, String url) {
+  public Announcement(Long id, String name, String content, User user, int views, AnnouncementKind kind, int recruitment,
+      LocalDateTime starDate, LocalDateTime endDate, int period, String url, List<HashtagPost> hashtagPosts) {
     this.id = id;
     this.name = name;
     this.content = content;
     this.user = user;
     this.views = views;
+    this.kind = kind;
     this.recruitment = recruitment;
     this.starDate = starDate;
     this.endDate = endDate;
     this.period = period;
     this.url = url;
+    this.hashtagPosts = hashtagPosts;
   }
 
 
@@ -63,6 +74,10 @@ public class Announcement extends Post {
 
   public void updateContent(String content) {
     this.content = content;
+  }
+
+  public void updateAnnouncementKind(AnnouncementKind kind) {
+    this.kind = kind;
   }
 
   public void updateRecruitment(int recruitment) {

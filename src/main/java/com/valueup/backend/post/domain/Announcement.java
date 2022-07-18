@@ -46,12 +46,12 @@ public class Announcement extends Post {
   @Column(name = "announcement_url")
   private String url; //게시판 홈페이지
 
-  @OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<HashtagPost> hashtagPosts = new ArrayList<>();
+  //@OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  //private List<HashtagPost> hashtagPosts = new ArrayList<>();
 
   @Builder
   public Announcement(Long id, String name, String content, User user, int views, AnnouncementKind kind, int recruitment,
-      LocalDateTime starDate, LocalDateTime endDate, int period, String url, List<HashtagPost> hashtagPosts) {
+      LocalDateTime starDate, LocalDateTime endDate, int period, String url) {
     this.id = id;
     this.name = name;
     this.content = content;
@@ -63,7 +63,6 @@ public class Announcement extends Post {
     this.endDate = endDate;
     this.period = period;
     this.url = url;
-    this.hashtagPosts = hashtagPosts;
   }
 
 

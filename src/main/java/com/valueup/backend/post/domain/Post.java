@@ -2,8 +2,11 @@ package com.valueup.backend.post.domain;
 
 import static javax.persistence.FetchType.LAZY;
 
+import com.valueup.backend.bookmark.domain.Bookmark;
 import com.valueup.backend.common.BaseEntity;
 import com.valueup.backend.user.domain.User;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -14,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 
 @Entity
@@ -42,5 +46,7 @@ public abstract class Post extends BaseEntity {
   @Column(name = "post_views")
   protected int views;//게시판 조회수
 
+  @OneToMany(mappedBy = "post", orphanRemoval = true)
+  private List<Bookmark> bookmarks = new ArrayList<>();
 
 }

@@ -25,11 +25,11 @@ public class HashtagPost {
     @Column(name = "hashtag_post_id")
     private Long id; //해시태그게시판 번호
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Announcement announcement;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "post_id")
+    //private Announcement announcement;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hashtag_id")
-    private Hashtag hashtag;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "hashtag_id")
+    //private Hashtag hashtag;
 }

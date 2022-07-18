@@ -25,11 +25,12 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
     public final QPost _super;
 
     //inherited
+    public final ListPath<com.valueup.backend.bookmark.domain.Bookmark, com.valueup.backend.bookmark.domain.QBookmark> bookmarks;
+
+    //inherited
     public final StringPath content;
 
     public final DateTimePath<java.time.LocalDateTime> endDate = createDateTime("endDate", java.time.LocalDateTime.class);
-
-    public final ListPath<com.valueup.backend.hashtag.domain.HashtagPost, com.valueup.backend.hashtag.domain.QHashtagPost> hashtagPosts = this.<com.valueup.backend.hashtag.domain.HashtagPost, com.valueup.backend.hashtag.domain.QHashtagPost>createList("hashtagPosts", com.valueup.backend.hashtag.domain.HashtagPost.class, com.valueup.backend.hashtag.domain.QHashtagPost.class, PathInits.DIRECT2);
 
     //inherited
     public final NumberPath<Long> id;
@@ -78,6 +79,7 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
     public QAnnouncement(Class<? extends Announcement> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this._super = new QPost(type, metadata, inits);
+        this.bookmarks = _super.bookmarks;
         this.content = _super.content;
         this.id = _super.id;
         this.modDate = _super.modDate;

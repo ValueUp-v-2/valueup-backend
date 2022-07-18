@@ -31,6 +31,6 @@ public class Hashtag {
     @Column(name = "hashtag_content")
     private String content; //해시태그 이름
 
-    @OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<HashtagPost> hashtagPosts = new ArrayList<>();
+    //@OneToMany(mappedBy = "announcement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private List<HashtagPost> hashtagPosts = new ArrayList<>();
 }

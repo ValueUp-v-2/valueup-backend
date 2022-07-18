@@ -1,8 +1,11 @@
 package com.valueup.backend.post.controller;
 
+import com.valueup.backend.bookmark.dto.response.BookmarkResponse;
 import com.valueup.backend.post.dto.request.CommunityRequest;
 import com.valueup.backend.post.dto.response.CommunityListResponse;
 import com.valueup.backend.post.service.CommunityService;
+import com.valueup.backend.user.domain.User;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,8 +32,10 @@ public class CommunityController {
 
   @PostMapping("/community")
   public ResponseEntity<Long> createCommunity(@Valid @RequestBody CommunityRequest request,
+      HttpSession session,
       BindingResult result) {
-    Long id = communityService.createCommunity(request);
+    User user = (User) session.getAttribute("user");
+    Long id = communityService.createCommunity(user, request);
     if (result.hasErrors()) {
       //return ""; 다시 글 작성 페이지로
     }
@@ -60,5 +65,12 @@ public class CommunityController {
   public ResponseEntity<Void> deleteCommunity(@PathVariable Long id) {
     communityService.deleteCommunity(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/community/bookmarks{id}")
+  public ResponseEntity<BookmarkResponse> bookmarkCommunity(@PathVariable Long id,
+      HttpSession session){
+    User user = (User) session.getAttribute("user");
+    return ResponseEntity.ok(new BookmarkResponse(communityService.bookmarkPost(id, user)));
   }
 }

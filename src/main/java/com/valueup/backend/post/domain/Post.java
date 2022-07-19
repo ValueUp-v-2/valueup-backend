@@ -3,6 +3,7 @@ package com.valueup.backend.post.domain;
 import static javax.persistence.FetchType.LAZY;
 
 import com.valueup.backend.bookmark.domain.Bookmark;
+import com.valueup.backend.comment.domain.Comment;
 import com.valueup.backend.common.BaseEntity;
 import com.valueup.backend.user.domain.User;
 import java.util.ArrayList;
@@ -48,5 +49,7 @@ public abstract class Post extends BaseEntity {
 
   @OneToMany(mappedBy = "post", orphanRemoval = true)
   private List<Bookmark> bookmarks = new ArrayList<>();
+
+
 
 }

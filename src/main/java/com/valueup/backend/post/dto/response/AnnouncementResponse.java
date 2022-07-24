@@ -1,6 +1,7 @@
 package com.valueup.backend.post.dto.response;
 
 import com.valueup.backend.post.domain.Announcement;
+import com.valueup.backend.post.domain.AnnouncementKind;
 import com.valueup.backend.user.domain.User;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,9 @@ public class AnnouncementResponse {
 
   private String content;//게시판 내용
 
-  private String recruitment; //모집 인원
+  private AnnouncementKind kind; //공고 종류
+
+  private int recruitment; //모집 인원
 
   private LocalDateTime starDate;//시작 기간
 
@@ -38,10 +41,15 @@ public class AnnouncementResponse {
     this.id = announcement.getId();
     this.name = announcement.getName();
     this.nickname = announcement.getUser().getNickname();
+    this.content = announcement.getContent();
+    this.kind = announcement.getKind();
+    this.recruitment = announcement.getRecruitment();
     this.starDate = announcement.getStarDate();
     this.endDate = announcement.getEndDate();
     this.period = announcement.getPeriod();
     this.url = announcement.getUrl();
+    this.views = announcement.getViews();
+
   }
 
 

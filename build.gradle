@@ -28,6 +28,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    // Mysql
+    implementation 'mysql:mysql-connector-java'
+    
     // Querydsl
     implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
@@ -43,6 +46,8 @@ dependencies {
     //Database
     runtimeOnly 'com.h2database:h2'
 
+    // s3 bucket
+    compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
 }
 
 tasks.named('test') {

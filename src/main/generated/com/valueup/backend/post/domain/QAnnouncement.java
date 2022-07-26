@@ -25,6 +25,9 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
     public final QPost _super;
 
     //inherited
+    public final ListPath<com.valueup.backend.bookmark.domain.Bookmark, com.valueup.backend.bookmark.domain.QBookmark> bookmarks;
+
+    //inherited
     public final StringPath content;
 
     public final DateTimePath<java.time.LocalDateTime> endDate = createDateTime("endDate", java.time.LocalDateTime.class);
@@ -32,7 +35,7 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
     //inherited
     public final NumberPath<Long> id;
 
-    public final StringPath kind = createString("kind");
+    public final EnumPath<AnnouncementKind> kind = createEnum("kind", AnnouncementKind.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate;
@@ -76,6 +79,7 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
     public QAnnouncement(Class<? extends Announcement> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this._super = new QPost(type, metadata, inits);
+        this.bookmarks = _super.bookmarks;
         this.content = _super.content;
         this.id = _super.id;
         this.modDate = _super.modDate;

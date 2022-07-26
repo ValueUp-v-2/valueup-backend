@@ -25,6 +25,11 @@ public class QCommunity extends EntityPathBase<Community> {
     public final QPost _super;
 
     //inherited
+    public final ListPath<com.valueup.backend.bookmark.domain.Bookmark, com.valueup.backend.bookmark.domain.QBookmark> bookmarks;
+
+    public final EnumPath<CommunityCategory> communityCategory = createEnum("communityCategory", CommunityCategory.class);
+
+    //inherited
     public final StringPath content;
 
     //inherited
@@ -66,6 +71,7 @@ public class QCommunity extends EntityPathBase<Community> {
     public QCommunity(Class<? extends Community> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this._super = new QPost(type, metadata, inits);
+        this.bookmarks = _super.bookmarks;
         this.content = _super.content;
         this.id = _super.id;
         this.modDate = _super.modDate;

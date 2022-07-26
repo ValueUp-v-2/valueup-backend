@@ -17,4 +17,6 @@ public interface AnnouncementService {
   Long updateAnnouncement(AnnouncementRequest request, Long id);
 
   void deleteAnnouncement(Long id);
+
+  boolean bookmarkPost(Long postId, User user);
 }

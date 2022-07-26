@@ -24,6 +24,8 @@ public class QPost extends EntityPathBase<Post> {
 
     public final com.valueup.backend.common.QBaseEntity _super = new com.valueup.backend.common.QBaseEntity(this);
 
+    public final ListPath<com.valueup.backend.bookmark.domain.Bookmark, com.valueup.backend.bookmark.domain.QBookmark> bookmarks = this.<com.valueup.backend.bookmark.domain.Bookmark, com.valueup.backend.bookmark.domain.QBookmark>createList("bookmarks", com.valueup.backend.bookmark.domain.Bookmark.class, com.valueup.backend.bookmark.domain.QBookmark.class, PathInits.DIRECT2);
+
     public final StringPath content = createString("content");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

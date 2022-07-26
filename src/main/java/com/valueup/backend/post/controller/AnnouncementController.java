@@ -1,5 +1,6 @@
 package com.valueup.backend.post.controller;
 
+import com.valueup.backend.bookmark.dto.response.BookmarkResponse;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
 import com.valueup.backend.post.dto.response.AnnouncementResponse;
@@ -72,6 +73,13 @@ public class AnnouncementController {
   public ResponseEntity<Void> deleteAnnouncement(@PathVariable Long id) {
     announcementService.deleteAnnouncement(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/announcement/bookmarks{id}")
+  public ResponseEntity<BookmarkResponse> bookmarkCommunity(@PathVariable Long id,
+      HttpSession session){
+    User user = (User) session.getAttribute("user");
+    return ResponseEntity.ok(new BookmarkResponse(announcementService.bookmarkPost(id, user)));
   }
 
 }

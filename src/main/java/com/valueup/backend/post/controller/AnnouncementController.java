@@ -1,9 +1,12 @@
 package com.valueup.backend.post.controller;
 
 import com.valueup.backend.bookmark.dto.response.BookmarkResponse;
+import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
+import com.valueup.backend.post.dto.request.PageRequestDTO;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
 import com.valueup.backend.post.dto.response.AnnouncementResponse;
+import com.valueup.backend.post.dto.response.PageResponse;
 import com.valueup.backend.post.service.AnnouncementService;
 import com.valueup.backend.user.domain.User;
 import javax.servlet.http.HttpSession;
@@ -46,9 +49,10 @@ public class AnnouncementController {
   }
 
   @GetMapping("/announcement")
-  public ResponseEntity<AnnouncementListResponse> getListOfAnnouncement() {
-    AnnouncementListResponse announcementListResponse = announcementService.getListOfAnnouncement();
-    return new ResponseEntity<>(announcementListResponse, HttpStatus.OK);
+  public ResponseEntity<PageResponse<AnnouncementResponse, Announcement>> getListOfAnnouncement(
+      PageRequestDTO pageRequestDTO) {
+    PageResponse<AnnouncementResponse, Announcement> announcementResponse = announcementService.getListOfAnnouncement(pageRequestDTO);
+    return new ResponseEntity<>(announcementResponse, HttpStatus.OK);
   }
 
   @GetMapping("/announcement/{id}")

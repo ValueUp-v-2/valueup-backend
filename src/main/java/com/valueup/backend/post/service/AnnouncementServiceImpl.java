@@ -4,15 +4,21 @@ import com.valueup.backend.bookmark.domain.Bookmark;
 import com.valueup.backend.bookmark.repsoitory.BookmarkRepository;
 import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.dto.request.AnnouncementRequest;
+import com.valueup.backend.post.dto.request.PageRequestDTO;
 import com.valueup.backend.post.dto.response.AnnouncementListResponse;
 import com.valueup.backend.post.dto.response.AnnouncementResponse;
+import com.valueup.backend.post.dto.response.PageResponse;
 import com.valueup.backend.post.repository.AnnouncementRepository;
 import com.valueup.backend.user.domain.User;
 import com.valueup.backend.user.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +32,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
   private final BookmarkRepository bookmarkRepository;
 
 
+  //공고 등록
   @Transactional
   @Override
   public Long createAnnouncement(User user, AnnouncementRequest request) {
@@ -35,25 +42,22 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     return announcement.getId();
   }
 
+  //공고 조회
   @Transactional
   @Override
-  public AnnouncementListResponse getListOfAnnouncement() {
+  public PageResponse<AnnouncementResponse, Announcement> getListOfAnnouncement(PageRequestDTO requestDTO) {
+    Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());//상품 정렬
+    Page<Announcement> result = announcementRepository.findAll(pageable);
 
-    List<Announcement> announcements = announcementRepository.findAll();
-
-    List<AnnouncementResponse> announcementResponses = announcements.stream()
-        .map(a -> new AnnouncementResponse(a)).collect(
-            Collectors.toList());
-    AnnouncementListResponse announcementListResponse = new AnnouncementListResponse(
-        announcementResponses);
-    return announcementListResponse;
+    Function<Announcement, AnnouncementResponse> fn = (entity -> entityToDto(entity));
+    return new PageResponse<>(result, fn);
   }
 
   @Transactional
   @Override
   public AnnouncementResponse getAnnouncement(Long id) {
     Announcement announcement = announcementRepository.findById(id).orElse(null);
-    AnnouncementResponse announcementResponse = new AnnouncementResponse(announcement);
+    AnnouncementResponse announcementResponse = entityToDto(announcement);
     return announcementResponse;
   }
 

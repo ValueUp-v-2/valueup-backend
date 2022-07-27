@@ -7,15 +7,22 @@ import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.domain.Community;
 import com.valueup.backend.post.dto.request.CommunityRequest;
 
+import com.valueup.backend.post.dto.request.PageRequestDTO;
+import com.valueup.backend.post.dto.response.AnnouncementResponse;
 import com.valueup.backend.post.dto.response.CommunityListResponse;
 import com.valueup.backend.post.dto.response.CommunityResponse;
+import com.valueup.backend.post.dto.response.PageResponse;
 import com.valueup.backend.post.repository.CommunityRepository;
 import com.valueup.backend.user.domain.User;
 import com.valueup.backend.user.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,14 +45,19 @@ public class CommunityServiceImpl implements CommunityService {
 
   @Transactional
   @Override
-  public CommunityListResponse getListOfCommunity() {
-    List<Community> communities = communityRepository.findAll();
-    List<CommunityResponse> communityResponses = communities.stream()
-        .map(c -> new CommunityResponse(c)).collect(
-            Collectors.toList());
-    CommunityListResponse communityListResponse = new CommunityListResponse(
-        communityResponses);
-    return communityListResponse;
+  public PageResponse<CommunityResponse, Community> getListOfCommunity(PageRequestDTO requestDTO) {
+    Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());//상품 정렬
+    Page<Community> result = communityRepository.findAll(pageable);
+
+    Function<Community, CommunityResponse> fn = (entity -> entityToDto(entity));
+    return new PageResponse<>(result, fn);
+  }
+
+  @Override
+  public CommunityResponse getCommunity(Long id) {
+    Community community = communityRepository.findById(id).orElse(null);
+    CommunityResponse communityResponse = entityToDto(community);
+    return communityResponse;
   }
 
   @Override

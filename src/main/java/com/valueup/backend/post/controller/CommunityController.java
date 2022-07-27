@@ -1,8 +1,12 @@
 package com.valueup.backend.post.controller;
 
 import com.valueup.backend.bookmark.dto.response.BookmarkResponse;
+import com.valueup.backend.post.domain.Community;
 import com.valueup.backend.post.dto.request.CommunityRequest;
+import com.valueup.backend.post.dto.request.PageRequestDTO;
 import com.valueup.backend.post.dto.response.CommunityListResponse;
+import com.valueup.backend.post.dto.response.CommunityResponse;
+import com.valueup.backend.post.dto.response.PageResponse;
 import com.valueup.backend.post.service.CommunityService;
 import com.valueup.backend.user.domain.User;
 import javax.servlet.http.HttpSession;
@@ -44,9 +48,10 @@ public class CommunityController {
   }
 
   @GetMapping("/community")
-  public ResponseEntity<CommunityListResponse> getListOfCommunity() {
-    CommunityListResponse communityListResponse = communityService.getListOfCommunity();
-    return new ResponseEntity<>(communityListResponse, HttpStatus.OK);
+  public ResponseEntity<PageResponse<CommunityResponse, Community>> getListOfCommunity(
+      PageRequestDTO pageRequestDTO) {
+    PageResponse<CommunityResponse, Community> communityResponse = communityService.getListOfCommunity(pageRequestDTO);
+    return new ResponseEntity<>(communityResponse, HttpStatus.OK);
   }
 
   @PatchMapping("/community/{id}")

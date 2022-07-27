@@ -14,7 +14,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AwsS3Controller {
 
-    private final AwsS3Service awsS3Service;
+   /* private final AwsS3Service awsS3Service;
 
     @PostMapping("/upload")
     @ResponseBody
@@ -25,5 +25,5 @@ public class AwsS3Controller {
 //    @DeleteMapping("/upload")
 //    public void removeNewFile(AwsS3 awsS3) {
 //        awsS3Service.remove(awsS3);
-//    }
+//    }*/
 }

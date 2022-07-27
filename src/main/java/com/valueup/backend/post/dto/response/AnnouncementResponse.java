@@ -5,12 +5,14 @@ import com.valueup.backend.post.domain.AnnouncementKind;
 import com.valueup.backend.user.domain.User;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class AnnouncementResponse {
 
   private Long id;//게시판 아이디
@@ -37,20 +39,7 @@ public class AnnouncementResponse {
 
   private int comments;//댓글수
 
-  public AnnouncementResponse(Announcement announcement) {
-    this.id = announcement.getId();
-    this.name = announcement.getName();
-    this.nickname = announcement.getUser().getNickname();
-    this.content = announcement.getContent();
-    this.kind = announcement.getKind();
-    this.recruitment = announcement.getRecruitment();
-    this.starDate = announcement.getStarDate();
-    this.endDate = announcement.getEndDate();
-    this.period = announcement.getPeriod();
-    this.url = announcement.getUrl();
-    this.views = announcement.getViews();
 
-  }
 
 
 

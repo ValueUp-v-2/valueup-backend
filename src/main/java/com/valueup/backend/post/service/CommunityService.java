@@ -24,7 +24,7 @@ public interface CommunityService {
   void deleteCommunity(Long id);
 
   //좋아요
-  //boolean  likeCommunity(Long postId);
+  boolean  likeCommunity(Long postId, User user);
 
   boolean bookmarkPost(Long postId, User user);
 

@@ -4,8 +4,8 @@ import com.valueup.backend.bookmark.dto.response.BookmarkResponse;
 import com.valueup.backend.post.domain.Community;
 import com.valueup.backend.post.dto.request.CommunityRequest;
 import com.valueup.backend.post.dto.request.PageRequestDTO;
-import com.valueup.backend.post.dto.response.CommunityListResponse;
 import com.valueup.backend.post.dto.response.CommunityResponse;
+import com.valueup.backend.post.dto.response.CommunityLikeResponse;
 import com.valueup.backend.post.dto.response.PageResponse;
 import com.valueup.backend.post.service.CommunityService;
 import com.valueup.backend.user.domain.User;
@@ -54,6 +54,12 @@ public class CommunityController {
     return new ResponseEntity<>(communityResponse, HttpStatus.OK);
   }
 
+  @GetMapping("/community/{id}")
+  public ResponseEntity<CommunityResponse> getCommunity(@PathVariable Long id) {
+    CommunityResponse communityResponse = communityService.getCommunity(id);
+    return new ResponseEntity<>(communityResponse, HttpStatus.OK);
+  }
+
   @PatchMapping("/community/{id}")
   public ResponseEntity<Long> updateCommunity(
       @Valid @RequestBody CommunityRequest request, @PathVariable Long id,
@@ -72,10 +78,17 @@ public class CommunityController {
     return ResponseEntity.noContent().build();
   }
 
-  @PostMapping("/community/bookmarks{id}")
+  @PostMapping("/community/bookmarks/{id}")
   public ResponseEntity<BookmarkResponse> bookmarkCommunity(@PathVariable Long id,
       HttpSession session){
     User user = (User) session.getAttribute("user");
     return ResponseEntity.ok(new BookmarkResponse(communityService.bookmarkPost(id, user)));
+  }
+
+  @PostMapping("/community/likes/{id}")
+  public ResponseEntity<CommunityLikeResponse> likeCommunity(@PathVariable Long id,
+      HttpSession session){
+    User user = (User) session.getAttribute("user");
+    return ResponseEntity.ok(new CommunityLikeResponse(communityService.likeCommunity(id, user)));
   }
 }

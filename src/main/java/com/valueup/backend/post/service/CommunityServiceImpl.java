@@ -3,22 +3,19 @@ package com.valueup.backend.post.service;
 
 import com.valueup.backend.bookmark.domain.Bookmark;
 import com.valueup.backend.bookmark.repsoitory.BookmarkRepository;
-import com.valueup.backend.post.domain.Announcement;
 import com.valueup.backend.post.domain.Community;
+import com.valueup.backend.post.domain.CommunityLike;
 import com.valueup.backend.post.dto.request.CommunityRequest;
 
 import com.valueup.backend.post.dto.request.PageRequestDTO;
-import com.valueup.backend.post.dto.response.AnnouncementResponse;
-import com.valueup.backend.post.dto.response.CommunityListResponse;
 import com.valueup.backend.post.dto.response.CommunityResponse;
 import com.valueup.backend.post.dto.response.PageResponse;
 import com.valueup.backend.post.repository.CommunityRepository;
+import com.valueup.backend.post.repository.CommunityLikeRepository;
 import com.valueup.backend.user.domain.User;
 import com.valueup.backend.user.repository.UserRepository;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +31,7 @@ public class CommunityServiceImpl implements CommunityService {
   private final CommunityRepository communityRepository;
   private final UserRepository userRepository;
   private final BookmarkRepository bookmarkRepository;
+  private final CommunityLikeRepository communityLikeRepository;
 
   @Transactional
   @Override
@@ -74,6 +72,18 @@ public class CommunityServiceImpl implements CommunityService {
   public void deleteCommunity(Long id) {
     Community community = communityRepository.findById(id).orElse(null);
     communityRepository.delete(community);
+  }
+
+  @Override
+  public boolean likeCommunity(Long postId, User user) {
+    Community community = communityRepository.findById(postId).orElse(null);
+    Optional<CommunityLike> like = communityLikeRepository.findByUserAndCommunity(user, community);
+    if(like.isEmpty()){
+      communityLikeRepository.save(CommunityLike.createLike(user, community));
+      return true;
+    }
+    communityLikeRepository.delete(like.get());
+    return false;
   }
 
   @Override

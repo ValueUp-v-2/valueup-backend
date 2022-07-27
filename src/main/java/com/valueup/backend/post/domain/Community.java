@@ -27,8 +27,8 @@ public class Community extends Post {
   @Column(name = "community_category")
   private CommunityCategory communityCategory; //게시판 카테고리
 
-  @Column(name = "community_likes")
-  private int likes;//좋아요 수
+  @OneToMany(mappedBy = "community", orphanRemoval = true)
+  private List<CommunityLike> communityLikes = new ArrayList<>();
 
   @OneToMany(mappedBy = "community", orphanRemoval = true)
   private List<Comment> comments = new ArrayList<>();
@@ -36,13 +36,12 @@ public class Community extends Post {
 
   @Builder
   public Community(Long id, String name, String content, int views,
-      CommunityCategory communityCategory, int likes, User user, List<Comment> comments) {
+      CommunityCategory communityCategory, User user, List<Comment> comments) {
     this.id = id;
     this.name = name;
     this.content = content;
     this.views = views;
     this.communityCategory = communityCategory;
-    this.likes = likes;
     this.user = user;
     this.comments = comments;
 
